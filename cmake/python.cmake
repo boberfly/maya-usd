@@ -58,10 +58,11 @@ endif()
 # On Mac, with Maya 2022+, the Python binaries link against a non-existent path
 # maya2022/Maya.app/Contents/Frameworks/Python.framework/Versions/Current/bin/python -> /Library/Frameworks/Python.framework/Versions/3.7/Python
 # However, just using the mayapy executable is good enough for the build system
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+# FB : always use mayapy on windows too
+#if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     MESSAGE(STATUS "Setting Python_EXECUTABLE to MayaPy ${MAYA_PY_EXECUTABLE}")
     set(Python_EXECUTABLE ${MAYA_PY_EXECUTABLE})
-endif()
+#endif()
 
 # Use the Python module to find the python lib.
 if(BUILD_WITH_PYTHON_3)
@@ -165,24 +166,24 @@ string(REGEX REPLACE "\\\\" "/" PYTHON_PREFIX ${PYTHON_PREFIX})
 string(REGEX REPLACE "\\\\" "/" PYTHON_INCLUDE_DIR ${PYTHON_INCLUDE_DIR})
 string(REGEX REPLACE "\\\\" "/" PYTHON_SITE_PACKAGES ${PYTHON_SITE_PACKAGES})
 
-if(CMAKE_HOST_WIN32)
-    set(PYTHON_LIBRARY
-        "${PYTHON_PREFIX}/libs/Python${PYTHON_LIBRARY_SUFFIX}.lib")
-
-    # when run in a venv, PYTHON_PREFIX points to it. But the libraries remain in the
-    # original python installation. They may be found relative to PYTHON_INCLUDE_DIR.
-    if(NOT EXISTS "${PYTHON_LIBRARY}")
-        get_filename_component(_PYTHON_ROOT ${PYTHON_INCLUDE_DIR} DIRECTORY)
-        set(PYTHON_LIBRARY
-            "${_PYTHON_ROOT}/libs/Python${PYTHON_LIBRARY_SUFFIX}.lib")
-    endif()
-
-    # raise an error if the python libs are still not found.
-    if(NOT EXISTS "${PYTHON_LIBRARY}")
-        message(FATAL_ERROR "Python libraries not found")
-    endif()
-
-else()
+#if(CMAKE_HOST_WIN32)
+#    set(PYTHON_LIBRARY
+#        "${PYTHON_PREFIX}/libs/Python${PYTHON_LIBRARY_SUFFIX}.lib")
+#
+#    # when run in a venv, PYTHON_PREFIX points to it. But the libraries remain in the
+#    # original python installation. They may be found relative to PYTHON_INCLUDE_DIR.
+#    if(NOT EXISTS "${PYTHON_LIBRARY}")
+#        get_filename_component(_PYTHON_ROOT ${PYTHON_INCLUDE_DIR} DIRECTORY)
+#        set(PYTHON_LIBRARY
+#            "${_PYTHON_ROOT}/libs/Python${PYTHON_LIBRARY_SUFFIX}.lib")
+#    endif()
+#
+#    # raise an error if the python libs are still not found.
+#    if(NOT EXISTS "${PYTHON_LIBRARY}")
+#        message(FATAL_ERROR "Python libraries not found")
+#    endif()
+#
+#else()
     if(PYTHON_MULTIARCH)
         set(_PYTHON_LIBS_SEARCH "${PYTHON_LIBDIR}/${PYTHON_MULTIARCH}" "${PYTHON_LIBDIR}")
     else()
@@ -200,7 +201,7 @@ else()
     if(NOT PYTHON_LIBRARY)
         set(PYTHON_LIBRARY python${PYTHON_LIBRARY_SUFFIX})
     endif()
-endif()
+#endif()
 
 MARK_AS_ADVANCED(
   PYTHON_LIBRARY
