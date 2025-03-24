@@ -26,7 +26,7 @@
 #include <pxr/usd/usdShade/material.h>
 #include <pxr/usd/usdShade/nodeGraph.h>
 #include <pxr/usd/usdUI/nodeGraphNodeAPI.h>
-#if PXR_VERSION >= 2505
+#if PXR_VERSION >= 2502
 #include <pxr/usd/usdMtlx/tokens.h>
 #endif
 
