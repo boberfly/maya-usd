@@ -253,13 +253,19 @@ target_link_libraries(${PROJECT_NAME}
         $<$<BOOL:$<VERSION_GREATER_EQUAL:${USD_VERSION},0.24.11>>:Boost::headers>
     PRIVATE
         ghc_filesystem
-        $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:hdMtlx>
         $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:MaterialXCore>
         $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:MaterialXFormat>
         $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:MaterialXRender>
         $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:MaterialXGenShader>
         $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:MaterialXGenGlsl>
 )
+
+if(NOT CMAKE_INTERNAL_HDMTLX)
+    target_link_libraries(${PROJECT_NAME}
+        PRIVATE
+            $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:hdMtlx>
+    )
+endif()
 
 # -----------------------------------------------------------------------------
 # run-time search paths

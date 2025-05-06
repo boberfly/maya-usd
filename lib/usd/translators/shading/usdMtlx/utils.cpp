@@ -37,7 +37,9 @@ namespace mx = MaterialX;
 
 PXR_NAMESPACE_OPEN_SCOPE
 
+#if PXR_VERSION <= 2411
 TF_DEFINE_PUBLIC_TOKENS(UsdMtlxTokens, USD_MTLX_TOKENS);
+#endif
 
 namespace {
 

@@ -4,7 +4,7 @@
 // Licensed under the terms set forth in the LICENSE.txt file available at
 // https://openusd.org/license.
 //
-#include "hdMtlx/hdMtlx.h"
+#include "hdMtlx.h"
 #include "pxr/imaging/hd/material.h"
 #include "pxr/imaging/hd/materialNetwork2Interface.h"
 
