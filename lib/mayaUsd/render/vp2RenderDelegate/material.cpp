@@ -39,7 +39,11 @@
 #include <pxr/imaging/hd/sceneDelegate.h>
 
 #ifdef WANT_MATERIALX_BUILD
+#ifdef INTERNAL_HDMTLX
+#include "hdMtlx/hdMtlx.h"
+#else
 #include <pxr/imaging/hdMtlx/hdMtlx.h>
+#endif
 #endif
 #include <pxr/pxr.h>
 #include <pxr/usd/ar/packageUtils.h>

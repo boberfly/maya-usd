@@ -85,6 +85,10 @@ if (CMAKE_WANT_MATERIALX_BUILD)
     set(WANT_MATERIALX_BUILD ON)
 endif()
 
+if (CMAKE_INTERNAL_HDMTLX)
+    set(INTERNAL_HDMTLX ON)
+endif()
+
 set(SRCFILE ${CMAKE_CURRENT_SOURCE_DIR}/mayaUsdAPI.h.src)
 set(DSTFILE ${CMAKE_BINARY_DIR}/include/mayaUsdAPI/mayaUsdAPI.h)
 if (NOT EXISTS ${DSTFILE})
@@ -106,6 +110,7 @@ mayaUsd_promoteHeaderList(
 # -----------------------------------------------------------------------------
 target_include_directories(${PROJECT_NAME}
     PRIVATE
+        $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:${MATERIALX_BASE_DIR}/include>
         ${PXR_INCLUDE_DIRS}
         ${MAYA_INCLUDE_DIRS}
         ${CMAKE_BINARY_DIR}/include

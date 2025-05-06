@@ -37,6 +37,8 @@ if(APPLE)
 endif()
 set(BUILD_WITH_PYTHON_3_VERSION 3.7 CACHE STRING "The version of Python 3 to build with")
 option(CMAKE_WANT_MATERIALX_BUILD "Enable building with MaterialX." ON)
+option(CMAKE_INTERNAL_HDMTLX "Enable building with an internal hdMtlx." OFF)
+option(CMAKE_INTERNAL_USDMTLX "Enable building with an internal usdMtlx." OFF)
 option(CMAKE_WANT_VALIDATE_UNDO_ITEM "Enable validating undo items list." OFF)
 
 set(PXR_OVERRIDE_PLUGINPATH_NAME PXR_PLUGINPATH_NAME
@@ -168,7 +170,7 @@ if (BUILD_MAYAUSD_LIBRARY OR BUILD_AL_PLUGIN OR BUILD_TESTS)
 endif()
 if (CMAKE_WANT_MATERIALX_BUILD)
     # Requires at least USD 21.08 for hdMtlx module and USD must have been built with MaterialX:
-    if(NOT TARGET hdMtlx)
+    if(NOT TARGET hdMtlx AND NOT CMAKE_INTERNAL_HDMTLX)
         set(CMAKE_WANT_MATERIALX_BUILD OFF)
         message(WARNING "Disabling MaterialX VP2 rendering: it is not supported by this USD package.")
     endif()

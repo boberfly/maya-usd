@@ -210,6 +210,7 @@ mayaUsd_compile_config(${PROJECT_NAME})
 # -----------------------------------------------------------------------------
 target_include_directories(${PROJECT_NAME} 
     SYSTEM PUBLIC
+        $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:${MATERIALX_BASE_DIR}/include>
         ${PXR_INCLUDE_DIRS}
         ${MAYA_INCLUDE_DIRS}
         ${UFE_INCLUDE_DIR}
@@ -311,6 +312,9 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/lib/usd/plugInfo.json
 add_subdirectory(base)
 add_subdirectory(commands)
 add_subdirectory(fileio)
+if( CMAKE_INTERNAL_HDMTLX )
+    add_subdirectory(hdMtlx)
+endif()
 add_subdirectory(listeners)
 add_subdirectory(nodes)
 add_subdirectory(python)

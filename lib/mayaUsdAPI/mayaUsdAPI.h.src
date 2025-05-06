@@ -54,4 +54,8 @@ using namespace MAYAUSDAPI_VERSIONED_NS;
 #cmakedefine WANT_MATERIALX_BUILD
 #endif
 
+#ifndef INTERNAL_HDMTLX
+#cmakedefine INTERNAL_HDMTLX
+#endif
+
 #endif // MAYAUSDAPI_H

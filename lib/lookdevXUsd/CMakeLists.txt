@@ -109,6 +109,7 @@ mayaUsd_promoteHeaderList(
 # -----------------------------------------------------------------------------
 target_include_directories(${PROJECT_NAME} 
     PUBLIC
+        $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:${MATERIALX_BASE_DIR}/include>
         ${PXR_INCLUDE_DIRS}
         ${UFE_INCLUDE_DIR}
         ${LookdevXUfe_INCLUDE_DIR}

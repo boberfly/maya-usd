@@ -47,6 +47,7 @@ mayaUsd_compile_config(${PYTHON_TARGET_NAME})
 # -----------------------------------------------------------------------------
 target_include_directories(${PROJECT_NAME} 
     PUBLIC
+        $<$<BOOL:${CMAKE_WANT_MATERIALX_BUILD}>:${MATERIALX_BASE_DIR}/include>
         ${PXR_INCLUDE_DIRS}
         ${MAYA_INCLUDE_DIRS}
         ${UFE_INCLUDE_DIR}

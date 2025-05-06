@@ -22,7 +22,11 @@
 
 #include <pxr/base/tf/token.h>
 #include <pxr/pxr.h>
+#ifdef INTERNAL_USDMTLX_UTILS
+#include "usdMtlx/utils.h"
+#else
 #include <pxr/usd/usdMtlx/utils.h>
+#endif
 #include <pxr/usd/usdShade/material.h>
 #include <pxr/usd/usdShade/nodeGraph.h>
 #include <pxr/usd/usdUI/nodeGraphNodeAPI.h>

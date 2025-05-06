@@ -521,6 +521,10 @@ def BuildAndInstall(context, buildArgs, stages):
             extraArgs.append('-DCMAKE_WANT_MATERIALX_BUILD=ON')
             extraArgs.append('-DCMAKE_PREFIX_PATH="{materialxLocation}"'
                              .format(materialxLocation=context.pxrUsdLocation))
+            if context.internalHdMtlx:
+                extraArgs.append('-DCMAKE_INTERNAL_HDMTLX=ON')
+            if context.internalUsdMtlxUtils:
+                extraArgs.append('-DCMAKE_INTERNAL_USDMTLX_UTILS=ON')
         else:
             extraArgs.append('-DCMAKE_WANT_MATERIALX_BUILD=OFF')
 
@@ -620,6 +624,11 @@ parser.add_argument("--materialx", dest="build_materialx", action="store_true", 
 parser.add_argument("--no-materialx", dest="build_materialx", action="store_false",
                     help="Do not build MaterialX support in MayaUsd.")
 
+parser.add_argument("--internal-hdmtlx", dest="build_internalhdmtlx", action="store_true", default=False,
+                    help="Build internal hdMtlx.")
+parser.add_argument("--internal-usdmtlx-utils", dest="build_internalusdmtlxutils", action="store_true", default=False,
+                    help="Build internal usdMtlx utils.")
+
 varGroup = parser.add_mutually_exclusive_group()
 varGroup.add_argument("--build-debug", dest="build_debug", action="store_true",
                     help="Build in Debug mode (default: %(default)s)")
@@ -713,6 +722,8 @@ class InstallContext:
 
         # MaterialX
         self.materialxEnabled = args.build_materialx
+        self.internalHdMtlx = args.build_internalhdmtlx
+        self.internalUsdMtlxUtils = args.build_internalusdmtlxutils
 
         # Log File Name
         logFileName="build_log.txt"
